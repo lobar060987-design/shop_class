@@ -1,0 +1,254 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Start Content -->
+<div class="container py-5">
+
+    <div class="row">
+
+        <!-- FILTERS -->
+        <div class="col-lg-3">
+
+            <h2 class="h4 pb-3">Filters</h2>
+
+            <form method="get">
+
+                <!-- Category -->
+                <div class="mb-4">
+
+                    <h5 class="h6">Category</h5>
+
+                    {% for category in categories %}
+
+                        <div class="form-check">
+
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   name="category"
+                                   value="{{ category.id }}">
+
+                            <label class="form-check-label">
+                                {{ category.name }}
+                            </label>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+                <!-- Brand -->
+                <div class="mb-4">
+
+                    <h5 class="h6">Brand</h5>
+
+                    {% for brand in brands %}
+
+                        <div class="form-check">
+
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   name="brand"
+                                   value="{{ brand.id }}">
+
+                            <label class="form-check-label">
+                                {{ brand.name }}
+                            </label>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+                <!-- Size -->
+                <div class="mb-4">
+
+                    <h5 class="h6">Size</h5>
+
+                    <div class="d-flex flex-wrap">
+
+                        {% for size in sizes %}
+
+                            <label class="border rounded px-3 py-2 bg-white me-2 mb-2">
+
+                                <input type="checkbox"
+                                       name="size"
+                                       value="{{ size.id }}">
+
+                                {{ size.name }}
+
+                            </label>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+                <!-- Color -->
+                <div class="mb-4">
+
+                    <h5 class="h6">Color</h5>
+
+                    {% for color in colors %}
+
+                        <div class="form-check">
+
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   name="color"
+                                   value="{{ color.id }}">
+
+                            <label class="form-check-label">
+                                {{ color.name }}
+                            </label>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+                <!-- Buttons -->
+                <div class="d-flex gap-2 mt-4">
+
+                    <button type="reset"
+                            class="btn btn-outline-danger">
+                        Clear Filters
+                    </button>
+
+                    <button type="submit"
+                            class="btn btn-success">
+                        Apply Filters
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+        <!-- PRODUCTS -->
+        <div class="col-lg-9">
+
+            <div class="row">
+
+                {% for product in products %}
+
+                    <div class="col-md-4">
+
+                        <div class="card mb-4 product-wap rounded-0">
+
+                            <div class="card rounded-0">
+
+                                <img class="card-img rounded-0 img-fluid"
+                                     src="{{ product.image.url }}"
+                                     alt="{{ product.name }}">
+
+                                <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+
+                                    <ul class="list-unstyled">
+
+                                        <!-- Wishlist -->
+                                        <li>
+
+                                            <a class="btn btn-success text-white"
+                                               href="{% url 'products:wishlist_create' pk=product.pk %}?next={{ request.path }}">
+
+                                                <i class="far fa-heart"></i>
+
+                                            </a>
+
+                                        </li>
+
+                                        <!-- Detail -->
+                                        <li>
+
+                                            <a class="btn btn-success text-white mt-2"
+                                               href="{% url 'products:detail' pk=product.pk %}">
+
+                                                <i class="far fa-eye"></i>
+
+                                            </a>
+
+                                        </li>
+
+                                        <!-- Cart -->
+                                        <li>
+
+                                          <a class="btn btn-success text-white mt-2"
+                                             href="{% url 'products:create_cart' pk=product.pk %}?next={{ request.path }}">
+                                              <i class="fas fa-cart-plus"></i></a>
+
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+
+                            </div>
+
+                            <div class="card-body">
+
+                                <a href="{% url 'products:detail' pk=product.pk %}"
+                                   class="h3 text-decoration-none">
+
+                                    {{ product.name }}
+
+                                </a>
+
+                                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+                                    <li>
+
+                                        {% for size in product.sizes.all %}
+
+                                            / {{ size.name }}
+
+                                        {% endfor %}
+
+                                    </li>
+
+                                </ul>
+
+                                <ul class="list-unstyled d-flex justify-content-center mb-1">
+
+                                    <li>
+
+                                        <i class="text-warning fa fa-star"></i>
+                                        <i class="text-warning fa fa-star"></i>
+                                        <i class="text-warning fa fa-star"></i>
+                                        <i class="text-muted fa fa-star"></i>
+                                        <i class="text-muted fa fa-star"></i>
+
+                                    </li>
+
+                                </ul>
+
+                                <p class="text-center mb-0">
+
+                                    ${{ product.get_price }}
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- End Content -->
+
+{% endblock %}

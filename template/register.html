@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Register | E-com shop</title>
+
+```
+<style>
+    :root {
+      --primary: #59ab6e;
+      --primary-dark: #488a59;
+      --primary-light: #7bc18e;
+      --primary-transparent: rgba(89, 171, 110, 0.1);
+      --text-dark: #333333;
+      --text-light: #ffffff;
+      --background: #f9f9f9;
+      --error: #e74c3c;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--background);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 450px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      background: var(--primary);
+      padding: 25px;
+      text-align: center;
+      color: white;
+    }
+
+    .form-container {
+      padding: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 15px;
+    }
+</style>
+
+</head>
+
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Create Account</h1>
+        <p>Join our community</p>
+    </div>
+
+<div class="form-container">
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+
+        <div class="form-group">
+            <label for="first_name">First Name</label>
+            <input type="text" id="first_name" name="first_name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="last_name">Last Name</label>
+            <input type="text" id="last_name" name="last_name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password1" required>
+        </div>
+
+        <div class="form-group">
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" name="password2" required>
+        </div>
+
+        <button type="submit" class="btn">Create Account</button>
+    </form>
+
+    <div class="login-link">
+        Already have an account?
+        <a href="{% url 'users:login' %}">Sign In</a>
+    </div>
+</div>
+
+
+</div>
+
+<script>
+    const toggle = (id) => {
+        const input = document.getElementById(id);
+        input.type = input.type === "password" ? "text" : "password";
+    };
+</script>
+
+</body>
+</html>
